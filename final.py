@@ -1,6 +1,10 @@
 import os
 
 import pandas as pd
+from geographiclib.geodesic import Geodesic
+import datetime
+import time
+import math
 import matplotlib.pyplot as plt
 # Assumption 1 : Is the area with more water coverage has a less change in the amount of ozone layer?
 #				 If it is, how much its changed in percentage less than other area?
@@ -56,23 +60,71 @@ def watercover_ozone(water,yearfile):
 	return  result
 
 ###Assumption2 : volcanos data from: https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-data?maxYear=2020&minYear=2000&country=United%20States
-
+def distance (x1,y1,x2,y2):
+    """
+    give the two position, return in miles
+    :param x1: first position x
+    :param y1: first position y
+    :param x2: second position x
+    :param y2: second position y
+    :return: miles in float
+    """
+    geod = Geodesic.WGS84
+    dist = geod.Inverse(float(x1),float(y1),float(x2),float(y2))
+    return  dist['s12'] /1852.0
 ###### main function:
 if __name__ == "__main__":
 	#result = precipitation_ozone('ozone/metdata_2019.csv')
 	#print(result)
-### water coverage
+### Assumption1 :
 	water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
 	for ind in water.index:
 		num = water['COVERAGE'][ind]
 		num = num.replace('%', '')
 		num = float(num)
 		water['COVERAGE'][ind] = num
-	for i in range(10,20):
+	# ozone polution change with water coverage
+	"""for i in range(10,20):
 		file = 'ozone/metdata_20' + str(i)+'.csv'
 		result = watercover_ozone(water,file)
-# plot package used on https://matplotlib.org/tutorials/introductory/pyplot.html
+		# plot package used on https://matplotlib.org/tutorials/introductory/pyplot.html
 		plt.plot(result['COVERAGE'],result['OZONE'])
-	plt.show()
+	plt.savefig('watercover_ozone.png')
+
+	# ozone plution changing rate each year :
+	state_ozone = {}
+	calcul = {}
+	for ind in water.index:
+		if water['STATE'][ind] not in state_ozone:
+			state_ozone[water['STATE'][ind]] = 0
+			calcul[water['STATE'][ind]] = []
+	for i in range(10, 20):
+		before = 0
+		file = 'ozone/metdata_20' + str(i) + '.csv'
+		result = watercover_ozone(water, file)
+		for ind in result.index:
+			calcul[result['STATE'][ind]].append(result['OZONE'][ind])
+	for re in calcul:
+		if len(calcul[re]) != 0:
+			lst = []
+			current = calcul[re][0]
+			for item in calcul[re][1:]:
+				if current != 0 and item !=0:
+					lst.append((item-current)/current)
+			sum = 0
+			for item in lst:
+				sum += item
+			final = sum/len(lst)
+			state_ozone[re] = final
+	### plot
+	x = []
+	y = []
+	for ind in result.index:
+		x.append(result['COVERAGE'][ind])
+		y.append(state_ozone[result['STATE'][ind]])
+	plt.plot(x,y)
+	plt.savefig('watercover_growRate.png')"""
+### Assumption 2 : volcanos influence
+
 	#volcano = pd.read_csv('volcanos.csv')
 	#print(volcano)
