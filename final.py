@@ -72,6 +72,84 @@ def distance (x1,y1,x2,y2):
     geod = Geodesic.WGS84
     dist = geod.Inverse(float(x1),float(y1),float(x2),float(y2))
     return  dist['s12'] /1852.0
+def time_hours(t1,t2):
+    """
+    compute the time lag between two records
+    :param t1: time 1
+    :param t2: time 2
+    :return: time lag in hours
+    >>> time_hours('2010-05-29 00:00', '2010-05-20 05:00')
+    True
+    """
+    dt1 = datetime.datetime.strptime(str(t1),"%Y-%m-%d %H:%M")
+    dt2 = datetime.datetime.strptime(str(t2),"%Y-%m-%d %H:%M")
+    diff = (dt2-dt1).seconds/3600 + (dt2-dt1).days*24
+    return diff
+def nearestSITE(vx,vy,number):
+	resultSITE = []
+	loc = {}
+	file = pd.read_csv('Site.csv')
+	for ind in file.index:
+		x2 =file['LATITUDE'][ind]
+		y2 =file['LONGITUDE'][ind]
+		loc[file['SITE_ID'][ind]] = distance(vx,vy,x2,y2)
+	for i in range(0,number):
+		min = 100000000000000
+		ID = ""
+		for item in loc:
+			if min > loc[item]:
+				min = loc[item]
+				ID = item
+		resultSITE.append(ID)
+		del loc[ID]
+	return resultSITE
+def timeana(set,eruptime,start,end):
+	eruptime = str(eruptime)+' 00:00'
+	result = {}
+	suma = 0
+	counta = 0
+	sumr = 0
+	countr = 0
+	for ind in set.index:
+		id = set['SITE_ID'][ind]
+		nt = str(set['DATE_TIME'][ind])[0:16]
+		sumr += set['OZONE'][ind]
+		countr +=1
+		if (time_hours(eruptime,nt) < end) and (time_hours(eruptime,nt) >= start ) :
+			suma += set['OZONE'][ind]
+			counta += 1
+	if suma != 0 :
+		ozone = suma/counta
+		regular = sumr/countr
+		result[id] = {'afterEruption': ozone ,'regular' : regular}
+		diff = result[id]['afterEruption'] - result[id]['regular']
+		return diff
+	else:
+		return 0
+
+def ozone_vol(data,site,erupdate):
+	for si in site:
+		start = -48
+		end = -42
+		x = []
+		y = []
+		for i in range(0,30):
+			influ = data[data['SITE_ID']== si]
+			if not influ.empty:
+				start += 6
+				end += 6
+				x.append(start)
+				result = timeana(influ,erupdate,start,end)
+				y.append(result)
+		if x != [] and y != []:
+			plt.plot(x,y)
+		name = str(erupdate)
+		plt.savefig('result_graph/volcano/'+ name+'.png')
+	plt.clf()
+
+
+
+
 ###### main function:
 if __name__ == "__main__":
 	#result = precipitation_ozone('ozone/metdata_2019.csv')
@@ -125,6 +203,17 @@ if __name__ == "__main__":
 	plt.plot(x,y)
 	plt.savefig('watercover_growRate.png')"""
 ### Assumption 2 : volcanos influence
+	# read in volcanos data
+	volcano = pd.read_csv('volcanos.csv')
+	# focus on the eruption date,year and the nearest 10 site.
+	for ind in volcano.index:
+		errupDate = str(volcano['Date'][ind])
+		year = errupDate[0:4]
+		file = 'ozone/metdata_' + str(year) + '.csv'
+		file = pd.read_csv(file)
+		file = file[file['OZONE'].notna()]
+		vx = volcano['Latitude'][ind]
+		vy = volcano['Longitude'][ind]
+		site = nearestSITE(vx,vy,5)
+		ozone_vol(file,site,errupDate)
 
-	#volcano = pd.read_csv('volcanos.csv')
-	#print(volcano)
