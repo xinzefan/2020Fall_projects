@@ -1,4 +1,5 @@
 ##assumption3: how ozone mean changes between northern cities and soutern cities in recently 5 years?
+
 ##select states representing northern America and select states representing southern America
 ##Northern states in America: 
 Connecticut
@@ -40,5 +41,4 @@ West Virginia
 
 
 
-##assumptions4: how concentrations for each pollutant over seasonal changes for recently 10 years in illinois state?
-##use the aggregate concentration data
+##assumptions4: how ozone mean in recently 5 years compare in all states?
