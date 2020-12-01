@@ -1,0 +1,53 @@
+import pandas as pd
+import numpy as ny
+
+
+meta_2019 = pd.read_csv("metdata_2019.csv")
+site = pd.read_csv("site.csv")
+
+#data tpyes for each column
+#print(meta_2019.dtypes)
+
+
+#siteid and ozone as dataframe
+osdf = meta_2019[['SITE_ID', 'OZONE']]
+print(osdf)
+
+#check for numbers of nan under column SITE_ID
+#check for numbers of nan under column OZONE
+osdf['SITE_ID'].isnull().sum()
+osdf['OZONE'].isnull().sum()
+
+#get ozone mean for each site
+v = osdf.groupby('SITE_ID').mean()
+print(v)
+
+
+#output as csv file
+#print(v.to_csv(index = False))
+
+#scatterplot
+#sp1 = v.plot.scatter(x = 'SITE_ID', y = 'OZONE')
+#print(sp1)
+
+
+#site and state dataframe
+sdf = site[['SITE_ID', 'STATE']]
+print(sdf)
+
+result = pd.concat([osdf, sdf], axis = 1, sort = False)
+print(result)
+
+#mean OZONE and state
+result = result.groupby("STATE").mean()
+print(result)
+
+
+#check numbers of null under state column
+null = sdf['STATE'].isnull().sum()
+#print(null)
+
+
+#site, county and state
+scsdf = site[['SITE_ID', 'STATE', 'COUNTY']]
+print(scsdf)
