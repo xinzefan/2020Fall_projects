@@ -18,3 +18,5 @@ How recently 5 years(from 2015-2019) ozone mean compare in each of the state in 
 
 # Assumption 4:
 How ozone mean in recently 5 years(from 2015-2019) compare in 4 different regions which are Midwest, Northeast, South and west?
+In details, conclude the variation in all states in 4 different regions.
+any state did not follow the trends in any region for each year?
