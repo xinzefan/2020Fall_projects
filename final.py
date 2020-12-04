@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # Assumption 1 : Is the area with more water coverage has a less change in the amount of ozone layer?
 #				 If it is, how much its changed in percentage less than other area?
 #				 When there are more raining, is the situation better than before?
-# Assumption 2 : Is the volcano's eruption  influenced the ozone layer? if so, how much it was influcened?
+# Assumption 2 : Is the volcano's eruption  influenced the ozone layer? if so, how much it was influenced?
 #
 # Assumption 3 : Is there a periodic term in changing? Like summer and winter the pollution terns to be more.
 
@@ -152,8 +152,8 @@ def ozone_vol(data,site,erupdate):
 
 ###### main function:
 if __name__ == "__main__":
-	#result = precipitation_ozone('ozone/metdata_2019.csv')
-	#print(result)
+	result = precipitation_ozone('ozone/metdata_2019.csv')
+	print(result)
 ### Assumption1 :
 	water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
 	for ind in water.index:
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 		num = float(num)
 		water['COVERAGE'][ind] = num
 	# ozone polution change with water coverage
-	"""for i in range(10,20):
+	for i in range(10,20):
 		file = 'ozone/metdata_20' + str(i)+'.csv'
 		result = watercover_ozone(water,file)
 		# plot package used on https://matplotlib.org/tutorials/introductory/pyplot.html
@@ -201,19 +201,7 @@ if __name__ == "__main__":
 		x.append(result['COVERAGE'][ind])
 		y.append(state_ozone[result['STATE'][ind]])
 	plt.plot(x,y)
-	plt.savefig('watercover_growRate.png')"""
+	plt.savefig('watercover_growRate.png')
 ### Assumption 2 : volcanos influence
-	# read in volcanos data
-	volcano = pd.read_csv('volcanos.csv')
-	# focus on the eruption date,year and the nearest 10 site.
-	for ind in volcano.index:
-		errupDate = str(volcano['Date'][ind])
-		year = errupDate[0:4]
-		file = 'ozone/metdata_' + str(year) + '.csv'
-		file = pd.read_csv(file)
-		file = file[file['OZONE'].notna()]
-		vx = volcano['Latitude'][ind]
-		vy = volcano['Longitude'][ind]
-		site = nearestSITE(vx,vy,5)
-		ozone_vol(file,site,errupDate)
+
 
