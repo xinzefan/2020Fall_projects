@@ -6,17 +6,17 @@ import datetime
 import time
 import math
 import matplotlib.pyplot as plt
-# Assumption 1 : Is the area with more water coverage has a less change in the amount of ozone layer?
-#				 If it is, how much its changed in percentage less than other area?
-#				 When there are more raining, is the situation better than before?
-# Assumption 2 : Is the volcano's eruption  influenced the ozone layer? if so, how much it was influenced?
-#
-# Assumption 3 : Is there a periodic term in changing? Like summer and winter the pollution terns to be more.
 
-# Assumption1:
-# ozone layer and deposition data : https://java.epa.gov/castnet/downloadprogress.do
-# water coverage data: https://www.usgs.gov/special-topic/water-science-school/science/how-wet-your-state-water-area-each-state?qt-science_center_objects=0#qt-science_center_objects
 def precipitation_ozone(filename):
+	"""
+	When there is a rain(PRECIPITATION ! = 0), analyze if the average ozone pollution in 3 hours after rain will be lower
+	than the 3 hours before raining
+	:param filename: given a year file name
+	:return: for each siteID, the percentage that every time raining the ozone pollution tends to be lower
+	>>> result = precipitation_ozone('ozone/metdata_2019.csv')
+	>>> result['ABT147'] =  0.5214611872146119
+
+	"""
 	data = pd.read_csv(filename)
 	data = data.sort_values(by=['SITE_ID','DATE_TIME'])
 	result = {}
@@ -33,7 +33,7 @@ def precipitation_ozone(filename):
 				bc = 1
 				after = 0
 				ac = 1
-				for i in range(0, 4):
+				for i in range(0, 6):
 					if (dex - i) > data.index[1]:
 						before += data['OZONE'][dex - i]
 						bc += 1
@@ -41,13 +41,43 @@ def precipitation_ozone(filename):
 						after += data['OZONE'][dex + i]
 						ac += 1
 				if before!= 0 and after!=0:
-					percentc = (after / ac) / (before /bc)
-					if percentc > 1:
+					diff = (after / ac) - (before /bc)
+					if diff < 0:
 						better += 1
 			result[data['SITE_ID'][ind]] = better/total
 	return result
+def yearRainAnanlyze(result):
+	"""
+	Analyze the year result, count the percentage that how many site getting better
+	:param result: the previous result which have each site's better rate
+	:return: the precentage that how many site getting better
+	>>> result = precipitation_ozone('ozone/metdata_2010.csv')
+	>>> print(yearRainAnanlyze(result))
+	0.5357142857142857
 
-def watercover_ozone(water,yearfile):
+	"""
+	better = 0
+	for re in result:
+		if result[re] > 0.5:
+			better += 1
+	return better / len(result)
+
+def watercover_ozone(yearfile):
+	"""
+	analyze state's ozone mean and match with the water coverage rater
+	:param yearfile: metdata with year
+	:return: a new dataframe which has state, ozone mean, coverage as column
+	>>> result = watercover_ozone('ozone/metdata_2010.csv')
+	>>> result[result['STATE'] == 'AZ']['OZONE']
+	3    44.008963
+	Name: OZONE, dtype: float64
+	"""
+	water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
+	for ind in water.index:
+		num = water['COVERAGE'][ind]
+		num = num.replace('%', '')
+		num = float(num)
+		water['COVERAGE'][ind] = num
 	ozoneyear = pd.read_csv(yearfile)
 	site_state = pd.read_csv('Site.csv')
 	temp = ozoneyear.groupby(['SITE_ID']).mean()
@@ -152,19 +182,32 @@ def ozone_vol(data,site,erupdate):
 
 ###### main function:
 if __name__ == "__main__":
-	result = precipitation_ozone('ozone/metdata_2019.csv')
-	print(result)
-### Assumption1 :
+	# Assumption1:
+	# Does the rain fall affect the ozone pollution? Will the water coverage rate influence the ozone pollutions constancy?
+	# Will the ozone pollutions tend to changed into wet-deposite with more rain fall?
+	# ozone layer and deposition data : https://java.epa.gov/castnet/downloadprogress.do
+	# water coverage data: https://www.usgs.gov/special-topic/water-science-school/science/how-wet-your-state-water-area-each-state?qt-science_center_objects=0#qt-science_center_objects
+	# 2019 example
 	water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
 	for ind in water.index:
 		num = water['COVERAGE'][ind]
 		num = num.replace('%', '')
 		num = float(num)
 		water['COVERAGE'][ind] = num
-	# ozone polution change with water coverage
+	"""result = precipitation_ozone('ozone/metdata_2019.csv')
+	yearRainAnanlyze(result)
+	# 10 years result
+	for i in range(10,20):
+		file = 'ozone/metdata_20' + str(i) +'.csv'
+		result = precipitation_ozone(file)
+		print('year: ',i)
+		yearRainAnanlyze(result)
+
+	# ozone pollution change with water coverage
 	for i in range(10,20):
 		file = 'ozone/metdata_20' + str(i)+'.csv'
 		result = watercover_ozone(water,file)
+		print(result)
 		# plot package used on https://matplotlib.org/tutorials/introductory/pyplot.html
 		plt.plot(result['COVERAGE'],result['OZONE'])
 	plt.savefig('watercover_ozone.png')
@@ -201,7 +244,21 @@ if __name__ == "__main__":
 		x.append(result['COVERAGE'][ind])
 		y.append(state_ozone[result['STATE'][ind]])
 	plt.plot(x,y)
-	plt.savefig('watercover_growRate.png')
+	plt.savefig('watercover_growRate.png')"""
 ### Assumption 2 : volcanos influence
+# read in volcanos data
+	volcano = pd.read_csv('volcanos.csv')
+# focus on the eruption date,year and the nearest 10 site.
+	for ind in volcano.index:
+		errupDate = str(volcano['Date'][ind])
+		year = errupDate[0:4]
+		file = 'ozone/metdata_' + str(year) + '.csv'
+		file = pd.read_csv(file)
+		file = file[file['OZONE'].notna()]
+		vx = volcano['Latitude'][ind]
+		vy = volcano['Longitude'][ind]
+		site = nearestSITE(vx,vy,5)
+		ozone_vol(file,site,errupDate)
+
 
 
