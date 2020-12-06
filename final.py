@@ -103,6 +103,8 @@ def distance (x1,y1,x2,y2):
     788.006105005502
     >>> distance(10.25, 14.11, 18.82, 51.49)
     2229.96418603418
+	>>> distance(16.708,145.780,41.84046,-72.010368)
+	6724.862746550514
     """
     geod = Geodesic.WGS84
     dist = geod.Inverse(float(x1),float(y1),float(x2),float(y2))
@@ -167,6 +169,13 @@ def timeana(set,eruptime,start,end):
 			return set['OZONE'][ind]
 
 def ozone_vol(data,site,erupdate):
+	"""
+	ozone pollution and volcanoes analyze
+	:param data: the metdata
+	:param site: nearest site
+	:param erupdate: erupt date
+	:return: plot use to analyze
+	"""
 	# plot multiple lines with label, learnt from:https://stackoverflow.com/questions/11481644/how-do-i-assign-multiple-labels-at-once-in-matplotlib
 	x = []
 	y = []
@@ -216,16 +225,16 @@ if __name__ == "__main__":
 	result = precipitation_ozone('ozone/metdata_2019.csv')
 	yearRainAnanlyze(result)
 	# 10 years result
-	for i in range(10,20):
+	for i in range(10,12):
 		file = 'ozone/metdata_20' + str(i) +'.csv'
 		result = precipitation_ozone(file)
 		print('year: ',i)
-		yearRainAnanlyze(result)
+		print(yearRainAnanlyze(result))
 
 	# ozone pollution change with water coverage
 	for i in range(10,20):
 		file = 'ozone/metdata_20' + str(i)+'.csv'
-		result = watercover_ozone(water,file)
+		result = watercover_ozone(file)
 		print(result)
 		# plot package used on https://matplotlib.org/tutorials/introductory/pyplot.html
 		plt.plot(result['COVERAGE'],result['OZONE'])
@@ -267,7 +276,8 @@ if __name__ == "__main__":
 ### Assumption 2 : volcanos influence
 # read in volcanos data
 	volcano = pd.read_csv('volcanos.csv')
-# focus on the eruption date,year and the nearest 10 site.
+	deposition = pd.read_csv('Deposition.csv')
+# focus on the eruption date,year and the nearest 5 site.
 	for ind in volcano.index:
 		errupDate = str(volcano['Date'][ind])
 		year = errupDate[0:4]
@@ -278,6 +288,7 @@ if __name__ == "__main__":
 		vy = volcano['Longitude'][ind]
 		site = nearestSITE(vx,vy,5)
 		ozone_vol(file,site,errupDate)
+
 
 
 

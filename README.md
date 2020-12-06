@@ -82,9 +82,19 @@ Assumption2:
      So instead of trying to analyze its own State data, we collected nearest 5 sites to where the volcanoes are. 
      Then select all usable data to do the further analyze.     
      - Analyze:     
-     After sort the 5 nearest sites, we plot the time
-        
-      
+     After sort the 5 nearest sites, we plot the time period from 48h before the eruption to 132h after the eruption.      
+     Notice that, since these site are all 2000 miles away from the volcano, so these measurements are likely to be affect by lots of reason. For example, the volcanoes did not explore that much pollutions or the pollutions did not travel that much.
+     In this report, we will just show some significant results, and others full result plots are in the result_graph/volcano folder.
+     - Results:    
+     (All these plots is the relationships between the time and the ozone pollution amount. x-axis: 48 hours before erupted to 132 hours after erupted.
+     y-axis: the ozone pollution amount. Labels: each site's Site_ID and how many miles its away from the volcano)
+     ![diagram](result_graph/volcano/2010-05-29.png)
+     This plot clearly shows that the site: DEN417 which is 3856 miles from the volcano 'Sarigan' has a huge ozone pollution growth after 75 hours of eruption.
+     ![diagram](result_graph/volcano/2012-03-02.png)
+     Above is the 'Kilauea' which erupted in 2012-03-02. As we can see that the LAV410 appeared same rapidly growth after 100 hours of the eruption.
+     But others nearest site did not have a significant change during this time. So we believed that this is affected by the wind blow direction. Such means that after the volcano erupted, the wind blow the pollution to one specific direction so not all near by sites got influenced by the volcano.
+     ![diagram](result_graph/volcano/2014-11-10.png)
+     (Another significant example) 
 
 How about other pollution gas changing? 
 # Assumption 3:
