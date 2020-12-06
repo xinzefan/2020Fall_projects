@@ -70,7 +70,22 @@
     
 # Assumption 2:
 Assumption2:     
-Will the volcanoes eruption influence the ozone polution?
+- Data used:
+    - metdata file for ozone pollution recent 10 years
+    - data file for the recent volcanoes eruption information
+    - metdata file for other pollution gas in recent 10 years
+    
+- Will the volcanoes eruption influence the ozone pollution?    
+    (As most of the environment department discover, one of the factor influence the ozone layer is the volcanoes' eruption. So we want to analyze that when the volcano erupted, how does the ozone pollution change. )     
+     - Difficulties:     
+      Since the ozone data is not really high quality which means we missed some data, especially the Hawaii. The Hawaii's volcano was erupted 3 times in 2018, by there are no ozone data collected in Hawaii during that year. 
+     So instead of trying to analyze its own State data, we collected nearest 5 sites to where the volcanoes are. 
+     Then select all usable data to do the further analyze.     
+     - Analyze:     
+     After sort the 5 nearest sites, we plot the time
+        
+      
+
 How about other pollution gas changing? 
 # Assumption 3:
 How recently 5 years(from 2015-2019) ozone mean compare in each of the state in the perspective of each months(From Jan to December)?

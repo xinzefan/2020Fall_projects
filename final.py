@@ -6,6 +6,7 @@ import datetime
 import time
 import math
 import matplotlib.pyplot as plt
+import pylab as plt
 
 def precipitation_ozone(filename):
 	"""
@@ -98,6 +99,10 @@ def distance (x1,y1,x2,y2):
     :param x2: second position x
     :param y2: second position y
     :return: miles in float
+    >>> distance(5.68, 7.95, 8.72, 20.81)
+    788.006105005502
+    >>> distance(10.25, 14.11, 18.82, 51.49)
+    2229.96418603418
     """
     geod = Geodesic.WGS84
     dist = geod.Inverse(float(x1),float(y1),float(x2),float(y2))
@@ -108,15 +113,24 @@ def time_hours(t1,t2):
     :param t1: time 1
     :param t2: time 2
     :return: time lag in hours
-    >>> time_hours('2010-05-29 00:00', '2010-05-20 05:00')
-    True
+    >>> time_hours('2010-05-29 00:00', '2010-05-28 23:00')
+    -1.0
     """
     dt1 = datetime.datetime.strptime(str(t1),"%Y-%m-%d %H:%M")
     dt2 = datetime.datetime.strptime(str(t2),"%Y-%m-%d %H:%M")
     diff = (dt2-dt1).seconds/3600 + (dt2-dt1).days*24
     return diff
 def nearestSITE(vx,vy,number):
-	resultSITE = []
+	"""
+	use distance functions to calculate the nearest SITE to the x,y
+	:param vx: x of position that volcano erupted
+	:param vy: y of position that volcano erupted
+	:param number: number of nearest site
+	:return: list of nearest SITE_ID
+	>>> nearestSITE(16.708,145.780,5)
+	{'HVT424': 3359.1784764667727, 'KVA428': 3715.4947252139095, 'DEN417': 3855.8991796178866, 'POF425': 3915.502661797372, 'OLY421': 4699.023392867393}
+	"""
+	resultSITE = {}
 	loc = {}
 	file = pd.read_csv('Site.csv')
 	for ind in file.index:
@@ -130,54 +144,59 @@ def nearestSITE(vx,vy,number):
 			if min > loc[item]:
 				min = loc[item]
 				ID = item
-		resultSITE.append(ID)
+		resultSITE[ID] = min
 		del loc[ID]
 	return resultSITE
 def timeana(set,eruptime,start,end):
+	"""
+	according to the eruption time, return the ozone during the start and end time
+	:param set: the dictionary of nearest site
+	:param eruptime: the time of the volcano eruption
+	:param start: plot start time
+	:param end: plot end time
+	:return: ozone pollution amount
+	>>> data = pd.read_csv('ozone/metdata_2010.csv')
+	>>> influ = data[data['SITE_ID'] == 'DEN417']
+	>>> timeana(influ,'2010-05-29',-20,30)
+	38.0
+	"""
 	eruptime = str(eruptime)+' 00:00'
-	result = {}
-	suma = 0
-	counta = 0
-	sumr = 0
-	countr = 0
 	for ind in set.index:
-		id = set['SITE_ID'][ind]
 		nt = str(set['DATE_TIME'][ind])[0:16]
-		sumr += set['OZONE'][ind]
-		countr +=1
 		if (time_hours(eruptime,nt) < end) and (time_hours(eruptime,nt) >= start ) :
-			suma += set['OZONE'][ind]
-			counta += 1
-	if suma != 0 :
-		ozone = suma/counta
-		regular = sumr/countr
-		result[id] = {'afterEruption': ozone ,'regular' : regular}
-		diff = result[id]['afterEruption'] - result[id]['regular']
-		return diff
-	else:
-		return 0
+			return set['OZONE'][ind]
 
 def ozone_vol(data,site,erupdate):
-	for si in site:
+	# plot multiple lines with label, learnt from:https://stackoverflow.com/questions/11481644/how-do-i-assign-multiple-labels-at-once-in-matplotlib
+	x = []
+	y = []
+	lab = []
+	for si in site.keys():
+		tx = []
+		ty = []
+		info = str(si) + ' ' + str(round(site[si])) + 'miles'
+		lab.append(info)
 		start = -48
 		end = -42
-		x = []
-		y = []
-		for i in range(0,30):
-			influ = data[data['SITE_ID']== si]
-			if not influ.empty:
+		influ = data[data['SITE_ID'] == si]
+		if not influ.empty:
+			for i in range(0,30):
 				start += 6
 				end += 6
-				x.append(start)
+				tx.append(start)
 				result = timeana(influ,erupdate,start,end)
-				y.append(result)
-		if x != [] and y != []:
-			plt.plot(x,y)
-		name = str(erupdate)
-		plt.savefig('result_graph/volcano/'+ name+'.png')
+				ty.append(result)
+		x.append(tx)
+		y.append(ty)
+
+	for i in range(len(x)):
+		if x[i] != [] and y[i] != []:
+			plt.plot(x[i],y[i],label = lab[i]  )
+
+	name = str(erupdate)
+	plt.legend()
+	plt.savefig('result_graph/volcano/'+ name+'.png')
 	plt.clf()
-
-
 
 
 ###### main function:
@@ -194,7 +213,7 @@ if __name__ == "__main__":
 		num = num.replace('%', '')
 		num = float(num)
 		water['COVERAGE'][ind] = num
-	"""result = precipitation_ozone('ozone/metdata_2019.csv')
+	result = precipitation_ozone('ozone/metdata_2019.csv')
 	yearRainAnanlyze(result)
 	# 10 years result
 	for i in range(10,20):
@@ -244,7 +263,7 @@ if __name__ == "__main__":
 		x.append(result['COVERAGE'][ind])
 		y.append(state_ozone[result['STATE'][ind]])
 	plt.plot(x,y)
-	plt.savefig('watercover_growRate.png')"""
+	plt.savefig('watercover_growRate.png')
 ### Assumption 2 : volcanos influence
 # read in volcanos data
 	volcano = pd.read_csv('volcanos.csv')
