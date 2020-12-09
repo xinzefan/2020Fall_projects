@@ -1,11 +1,11 @@
 # 2020Fall_projects
 # Team member & Contributes: 
-   Xinze Fan (Hypotheses 1 & 2 )     
-   Dezhou Chen (Hypothese 3 & 4)     
-   
-# Topic: 
+   Xinze Fan, Dezhou Chen   
+#Topic: 
    Ozone layer/ Ozone pollution or related gas analyze.
-# Assumption 1:  
+#Backgroud Information:
+
+# Hypothesis 1:  
 - Data Used:      
     - metdata_year.csv in ozone folder which contains the precipitation and ozone data for all the sites in united states.    
     - Site.csv : pair each SITE_ID to which State it actually in.     
@@ -54,13 +54,13 @@
      
     Below is plot shows the relationship between the state water coverage with the average ozone pollution.    
     The x-axis is the percentage of the state water coverage rate, the y-axis is the mean ozone pollution for that state. And each line represent a single year. So the plot show the recent 10 years, each state's water coverage with the mean ozone pollution.   
-    ![diagram](result/hypotheses1/watercover_ozone.png)   
+    ![diagram](result_graph/water/watercover_ozone.png)   
     From the plot, we can see that the coverage of the 0-10% has huge difference in each states so that the lines are tend to be more bounce.
     The coverage rate 10-20% is much more flat. And the lines going aggregation at the end. Of course since there are not too much states have the water coverage rate in 30-40%, it is not a significant value to give the conclusion that the line are going aggregation. However, we have a significant amount of states are in the 10-20% range. From this part
     we can prove that with the higher water coverage, the ozone pollutions are tend to be more flat curve and they aggregated to a certain range. 
     
     Further more, we also analyzed the ozone pollution growth rate. Consider about how CO2's circulation in the earth, water is an important part to do the chemical reaction and a buffer. So if our assumption is correct, as how CO2 circulation, the ozone pollution should have less changing rate in the area with more water coverage.   
-    ![diagram](result/hypotheses1/watercover_growRate.png)    
+    ![diagram](result_graph/water/watercover_growRate.png)    
     This plot shows the relationship between the water coverage and the growth rate of the ozone pollution in recent 10 years. (x-axis: the water coverage, y-axis: recent 10 years average ozone growth rate)       
     From the plot we can indicate that same as the previous analyze, the more water a state has, it has a more constant growth rate. 0-5% water coverage part have a really bouncy line which we believe that since there is too little water to reaction with ozone-pollution and has almost no buffer to the rapidly increasing ozone pollution. 
     And the area with 5% - 20% are tend to be converge in growth rate -10% - 0%. Such analyze proved that our previous assumption is correct.     
@@ -68,8 +68,7 @@
     The water act as a buffer in the ozone circulation, so with the higher water coverage, the ozone pollution's mean are tend to be more converge. And if a state has a higher water coverage, its ozone pollution's growth rate is less likely to change either.
      
     
-# Assumption 2:
-    
+# Hypothesis 2:     
 - Data used:
     - metdata file for ozone pollution recent 10 years
     - data file for the recent volcanoes eruption information
@@ -88,23 +87,30 @@
      - Results:    
      (All these plots is the relationships between the time and the ozone pollution amount. x-axis: 48 hours before erupted to 132 hours after erupted.
      y-axis: the ozone pollution amount. Labels: each site's Site_ID and how many miles its away from the volcano)
-     ![diagram](result/hypotheses2/2010-05-29.png)
+     ![diagram](result_graph/volcano/2010-05-29.png)
      This plot clearly shows that the site: DEN417 which is 3856 miles from the volcano 'Sarigan' has a huge ozone pollution growth after 75 hours of eruption.
-     ![diagram](result/hypotheses2/2012-03-02.png)
+     ![diagram](result_graph/volcano/2012-03-02.png)
      Above is the 'Kilauea' which erupted in 2012-03-02. As we can see that the LAV410 appeared same rapidly growth after 100 hours of the eruption.
      But others nearest site did not have a significant change during this time. So we believed that this is affected by the wind blow direction. Such means that after the volcano erupted, the wind blow the pollution to one specific direction so not all near by sites got influenced by the volcano.
-     ![diagram](result/hypotheses2/2014-11-10.png)    
+     ![diagram](result_graph/volcano/2014-11-10.png)
      (Another significant example) 
-     ---- Conclusion ----
-     The data support the hypotheses that with the volcanoes eruption, the ozone pollution 
-     is rapidly increase and influenced the surrounded area.
-      
 
-# Assumption 3:
+How about other pollution gas changing? 
+# Hypothesis 3:
 How recently 5 years(from 2015-2019) ozone mean compare in each of the state in the perspective of each months(From Jan to December)?
 
 
-# Assumption 4:
-How ozone mean in recently 5 years(from 2015-2019) compare in 4 different regions which are Midwest, Northeast, South and west?
-In details, conclude the variation in all states in 4 different regions.
-any state did not follow the trends in any region for each year?
+# Hypothesis 4:
+- Midwest has the highest overall ozone mean compare to that of other regions among all states from Year 2015 - Year 2019. Overall ozone mean within five years in descending order is ranked by Midwest, Northeast, South, West.
+
+- Ozone mean in Year 2016 and Year 2018 are higher than that of other years in each of four different regions.
+
+- Dataset Used:      
+    - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
+    - metdata_2016.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2016
+    - metdata_2017.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2017
+    - metdata_2018.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2018
+    - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
+    - Site.csv : pair each SITE_ID to which State it actually in.     
+ 
+
