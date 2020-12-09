@@ -1,5 +1,14 @@
-import os
+### Project member Xinze Fan, Dezhou Chen
 
+#### contribution :
+#### Xinze Fan: Hypotheses 1 & 2
+####			Function: def precipitation_ozone(filename),def yearRainAnanlyze(result),def watercover_ozone(yearfile),
+####						def distance (x1,y1,x2,y2), def time_hours(t1,t2), def nearestSITE(vx,vy,number),def timeana(set,eruptime,start,end),
+####						def ozone_vol(data,site,erupdate)
+#### Dezhou Chen: Hypotheses 3 & 4
+####			Function:
+
+import os
 import pandas as pd
 from geographiclib.geodesic import Geodesic
 import datetime
@@ -7,14 +16,16 @@ import time
 import math
 import matplotlib.pyplot as plt
 import pylab as plt
-
+########################
+#### Xinze Fan #########
+########################
 def precipitation_ozone(filename):
 	"""
 	When there is a rain(PRECIPITATION ! = 0), analyze if the average ozone pollution in 3 hours after rain will be lower
 	than the 3 hours before raining
 	:param filename: given a year file name
 	:return: for each siteID, the percentage that every time raining the ozone pollution tends to be lower
-	>>> result = precipitation_ozone('ozone/metdata_2019.csv')
+	>>> result = precipitation_ozone('data_used/ozone/metdata_2019.csv')
 	>>> result['ABT147'] =  0.5214611872146119
 
 	"""
@@ -52,7 +63,7 @@ def yearRainAnanlyze(result):
 	Analyze the year result, count the percentage that how many site getting better
 	:param result: the previous result which have each site's better rate
 	:return: the precentage that how many site getting better
-	>>> result = precipitation_ozone('ozone/metdata_2010.csv')
+	>>> result = precipitation_ozone('data_used/ozone/metdata_2010.csv')
 	>>> print(yearRainAnanlyze(result))
 	0.5357142857142857
 
@@ -68,7 +79,7 @@ def watercover_ozone(yearfile):
 	analyze state's ozone mean and match with the water coverage rater
 	:param yearfile: metdata with year
 	:return: a new dataframe which has state, ozone mean, coverage as column
-	>>> result = watercover_ozone('ozone/metdata_2010.csv')
+	>>> result = watercover_ozone('data_used/ozone/metdata_2010.csv')
 	>>> result[result['STATE'] == 'AZ']['OZONE']
 	3    44.008963
 	Name: OZONE, dtype: float64
@@ -134,7 +145,7 @@ def nearestSITE(vx,vy,number):
 	"""
 	resultSITE = {}
 	loc = {}
-	file = pd.read_csv('Site.csv')
+	file = pd.read_csv('data_used/Site.csv')
 	for ind in file.index:
 		x2 =file['LATITUDE'][ind]
 		y2 =file['LONGITUDE'][ind]
@@ -157,7 +168,7 @@ def timeana(set,eruptime,start,end):
 	:param start: plot start time
 	:param end: plot end time
 	:return: ozone pollution amount
-	>>> data = pd.read_csv('ozone/metdata_2010.csv')
+	>>> data = pd.read_csv('data_used/ozone/metdata_2010.csv')
 	>>> influ = data[data['SITE_ID'] == 'DEN417']
 	>>> timeana(influ,'2010-05-29',-20,30)
 	38.0
@@ -204,7 +215,7 @@ def ozone_vol(data,site,erupdate):
 
 	name = str(erupdate)
 	plt.legend()
-	plt.savefig('result_graph/volcano/'+ name+'.png')
+	plt.savefig('result/hypotheses2/'+ name+'.png')
 	plt.clf()
 
 
@@ -216,29 +227,29 @@ if __name__ == "__main__":
 	# ozone layer and deposition data : https://java.epa.gov/castnet/downloadprogress.do
 	# water coverage data: https://www.usgs.gov/special-topic/water-science-school/science/how-wet-your-state-water-area-each-state?qt-science_center_objects=0#qt-science_center_objects
 	# 2019 example
-	water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
+	"""water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
 	for ind in water.index:
 		num = water['COVERAGE'][ind]
 		num = num.replace('%', '')
 		num = float(num)
 		water['COVERAGE'][ind] = num
-	result = precipitation_ozone('ozone/metdata_2019.csv')
-	yearRainAnanlyze(result)
+	result = precipitation_ozone('data_used/ozone/metdata_2019.csv')
+	print(yearRainAnanlyze(result))
 	# 10 years result
-	for i in range(10,12):
-		file = 'ozone/metdata_20' + str(i) +'.csv'
+	for i in range(10,20):
+		file = 'data_used/ozone/metdata_20' + str(i) +'.csv'
 		result = precipitation_ozone(file)
 		print('year: ',i)
 		print(yearRainAnanlyze(result))
 
 	# ozone pollution change with water coverage
 	for i in range(10,20):
-		file = 'ozone/metdata_20' + str(i)+'.csv'
+		file = 'data_used/ozone/metdata_20' + str(i)+'.csv'
 		result = watercover_ozone(file)
-		print(result)
+
 		# plot package used on https://matplotlib.org/tutorials/introductory/pyplot.html
 		plt.plot(result['COVERAGE'],result['OZONE'])
-	plt.savefig('watercover_ozone.png')
+	plt.savefig('result/hypotheses1/watercover_ozone.png')
 
 	# ozone plution changing rate each year :
 	state_ozone = {}
@@ -249,8 +260,9 @@ if __name__ == "__main__":
 			calcul[water['STATE'][ind]] = []
 	for i in range(10, 20):
 		before = 0
-		file = 'ozone/metdata_20' + str(i) + '.csv'
-		result = watercover_ozone(water, file)
+		file = 'data_used/ozone/metdata_20' + str(i) + '.csv'
+
+		result = watercover_ozone( file)
 		for ind in result.index:
 			calcul[result['STATE'][ind]].append(result['OZONE'][ind])
 	for re in calcul:
@@ -272,22 +284,25 @@ if __name__ == "__main__":
 		x.append(result['COVERAGE'][ind])
 		y.append(state_ozone[result['STATE'][ind]])
 	plt.plot(x,y)
-	plt.savefig('watercover_growRate.png')
+	plt.savefig('result/hypotheses1/watercover_growRate.png')"""
 ### Assumption 2 : volcanos influence
 # read in volcanos data
-	volcano = pd.read_csv('volcanos.csv')
-	deposition = pd.read_csv('Deposition.csv')
+	volcano = pd.read_csv('data_used/volcanos.csv')
 # focus on the eruption date,year and the nearest 5 site.
 	for ind in volcano.index:
 		errupDate = str(volcano['Date'][ind])
 		year = errupDate[0:4]
-		file = 'ozone/metdata_' + str(year) + '.csv'
+		file = 'data_used/ozone/metdata_' + str(year) + '.csv'
 		file = pd.read_csv(file)
 		file = file[file['OZONE'].notna()]
 		vx = volcano['Latitude'][ind]
 		vy = volcano['Longitude'][ind]
 		site = nearestSITE(vx,vy,5)
 		ozone_vol(file,site,errupDate)
+################################
+###### Dezhou Chen  ############
+################################
+
 
 
 
