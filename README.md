@@ -5,7 +5,7 @@
    Ozone layer/ Ozone pollution or related gas analyze.
 #Backgroud Information:
 
-# Assumption 1:  
+# Hypothesis 1:  
 - Data Used:      
     - metdata_year.csv in ozone folder which contains the precipitation and ozone data for all the sites in united states.    
     - Site.csv : pair each SITE_ID to which State it actually in.     
@@ -68,7 +68,7 @@
     The water act as a buffer in the ozone circulation, so with the higher water coverage, the ozone pollution's mean are tend to be more converge. And if a state has a higher water coverage, its ozone pollution's growth rate is less likely to change either.
      
     
-# Assumption 2:
+# Hypothesis 2:
 Assumption2:     
 - Data used:
     - metdata file for ozone pollution recent 10 years
@@ -97,11 +97,19 @@ Assumption2:
      (Another significant example) 
 
 How about other pollution gas changing? 
-# Assumption 3:
+# Hypothesis 3:
 How recently 5 years(from 2015-2019) ozone mean compare in each of the state in the perspective of each months(From Jan to December)?
 
 
-# Assumption 4:
+# Hypothesis 4:
+- Dataset Used:      
+    - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
+    - metdata_2016.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2016
+    - metdata_2017.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2017
+    - metdata_2018.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2018
+    - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
+    - Site.csv : pair each SITE_ID to which State it actually in.     
+ 
 How ozone mean in recently 5 years(from 2015-2019) compare in 4 different regions which are Midwest, Northeast, South and west?
 In details, conclude the variation in all states in 4 different regions.
 any state did not follow the trends in any region for each year?
