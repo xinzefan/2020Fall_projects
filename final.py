@@ -227,7 +227,7 @@ if __name__ == "__main__":
 	# ozone layer and deposition data : https://java.epa.gov/castnet/downloadprogress.do
 	# water coverage data: https://www.usgs.gov/special-topic/water-science-school/science/how-wet-your-state-water-area-each-state?qt-science_center_objects=0#qt-science_center_objects
 	# 2019 example
-	"""water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
+	water = pd.read_csv('water_cover.csv', index_col=None, names=['STATE', 'COVERAGE'])
 	for ind in water.index:
 		num = water['COVERAGE'][ind]
 		num = num.replace('%', '')
@@ -284,8 +284,9 @@ if __name__ == "__main__":
 		x.append(result['COVERAGE'][ind])
 		y.append(state_ozone[result['STATE'][ind]])
 	plt.plot(x,y)
-	plt.savefig('result/hypotheses1/watercover_growRate.png')"""
+	plt.savefig('result/hypotheses1/watercover_growRate.png')
 ### Assumption 2 : volcanos influence
+# volcanoes dataset from :https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-data?maxYear=2020&minYear=2010&country=United%20States
 # read in volcanos data
 	volcano = pd.read_csv('data_used/volcanos.csv')
 # focus on the eruption date,year and the nearest 5 site.

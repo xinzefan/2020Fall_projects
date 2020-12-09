@@ -1,16 +1,16 @@
 # 2020Fall_projects
 # Team member & Contributes: 
-   Xinze Fan, Dezhou Chen   
-#Topic: 
+   Xinze Fan (Hypothesis 1 & 2 )    
+   Dezhou Chen (Hypothesis 3 & 4)
+# Topic: 
    Ozone layer/ Ozone pollution or related gas analyze.
-#Backgroud Information:
 
 # Hypothesis 1:  
 - Data Used:      
     - metdata_year.csv in ozone folder which contains the precipitation and ozone data for all the sites in united states.    
     - Site.csv : pair each SITE_ID to which State it actually in.     
     - water_cover.csv : each States' water coverage rate in United States.
-- Dose the rain falls influence the ozone pollution?    
+- The rain fall will reduce the ozone pollution in the air  
     (People always feel the air is more fresh and clean after raining. So is that means when it is raining, the water will have some chemical reaction with the ozone pollution. If this is true, it means after raining, the ozone pollution amount will smaller.)       
 
     We calculate the 5 hours average ozone pollution before each raining, and also the 5 hours average ozone pollution after each time of raining.
@@ -48,19 +48,19 @@
    
     ---- Conclusion ----    
     The rain fall (PRECIPITATION) has significant influence on the ozone pollution. The recent 10 years data shows that around 60% of the site's pollution each year will be optimized by the rain.    
-- How is the water coverage influence the ozone pollution?     
+- With more water coverage, a state can reduce more ozone pollution      
     (From the previous analyze, we found that water does influence the ozone pollution. So after analyzed the water from rain fall, we want to focus on the other side: the water in the lake or river.   
      We want to see if the water coverage of each state affect to the ozone pollution.)
      
     Below is plot shows the relationship between the state water coverage with the average ozone pollution.    
     The x-axis is the percentage of the state water coverage rate, the y-axis is the mean ozone pollution for that state. And each line represent a single year. So the plot show the recent 10 years, each state's water coverage with the mean ozone pollution.   
-    ![diagram](result_graph/water/watercover_ozone.png)   
+    ![diagram](result/hypotheses1/watercover_ozone.png)   
     From the plot, we can see that the coverage of the 0-10% has huge difference in each states so that the lines are tend to be more bounce.
     The coverage rate 10-20% is much more flat. And the lines going aggregation at the end. Of course since there are not too much states have the water coverage rate in 30-40%, it is not a significant value to give the conclusion that the line are going aggregation. However, we have a significant amount of states are in the 10-20% range. From this part
     we can prove that with the higher water coverage, the ozone pollutions are tend to be more flat curve and they aggregated to a certain range. 
     
     Further more, we also analyzed the ozone pollution growth rate. Consider about how CO2's circulation in the earth, water is an important part to do the chemical reaction and a buffer. So if our assumption is correct, as how CO2 circulation, the ozone pollution should have less changing rate in the area with more water coverage.   
-    ![diagram](result_graph/water/watercover_growRate.png)    
+    ![diagram](result/hypotheses1/watercover_growRate.png)    
     This plot shows the relationship between the water coverage and the growth rate of the ozone pollution in recent 10 years. (x-axis: the water coverage, y-axis: recent 10 years average ozone growth rate)       
     From the plot we can indicate that same as the previous analyze, the more water a state has, it has a more constant growth rate. 0-5% water coverage part have a really bouncy line which we believe that since there is too little water to reaction with ozone-pollution and has almost no buffer to the rapidly increasing ozone pollution. 
     And the area with 5% - 20% are tend to be converge in growth rate -10% - 0%. Such analyze proved that our previous assumption is correct.     
@@ -87,15 +87,16 @@
      - Results:    
      (All these plots is the relationships between the time and the ozone pollution amount. x-axis: 48 hours before erupted to 132 hours after erupted.
      y-axis: the ozone pollution amount. Labels: each site's Site_ID and how many miles its away from the volcano)
-     ![diagram](result_graph/volcano/2010-05-29.png)
+     ![diagram](result/hypotheses2/2010-05-29.png)
      This plot clearly shows that the site: DEN417 which is 3856 miles from the volcano 'Sarigan' has a huge ozone pollution growth after 75 hours of eruption.
-     ![diagram](result_graph/volcano/2012-03-02.png)
+     ![diagram](result/hypotheses2/2012-03-02.png)
      Above is the 'Kilauea' which erupted in 2012-03-02. As we can see that the LAV410 appeared same rapidly growth after 100 hours of the eruption.
      But others nearest site did not have a significant change during this time. So we believed that this is affected by the wind blow direction. Such means that after the volcano erupted, the wind blow the pollution to one specific direction so not all near by sites got influenced by the volcano.
-     ![diagram](result_graph/volcano/2014-11-10.png)
-     (Another significant example) 
+     ![diagram](result/hypotheses2/2014-11-10.png)     
+     (Another significant example)      
+     ---- Conclusion ----
+     The volcanoes eruption will increase the ozone pollution rapidly and influenced the surrounded area.
 
-How about other pollution gas changing? 
 # Hypothesis 3:
 How recently 5 years(from 2015-2019) ozone mean compare in each of the state in the perspective of each months(From Jan to December)?
 
@@ -112,5 +113,9 @@ How recently 5 years(from 2015-2019) ozone mean compare in each of the state in 
     - metdata_2018.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2018
     - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
     - Site.csv : pair each SITE_ID to which State it actually in.     
- 
+
+# Reference:
+- Ozone related Data:  https://java.epa.gov/castnet/downloadprogress.do
+- Water Coverage Data: https://www.usgs.gov/special-topic/water-science-school/science/how-wet-your-state-water-area-each-state?qt-science_center_objects=0#qt-science_center_objects
+- Volcanoes Data: https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-data?maxYear=2020&minYear=2010&country=United%20States
 
