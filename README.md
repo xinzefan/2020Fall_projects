@@ -68,8 +68,7 @@
     The water act as a buffer in the ozone circulation, so with the higher water coverage, the ozone pollution's mean are tend to be more converge. And if a state has a higher water coverage, its ozone pollution's growth rate is less likely to change either.
      
     
-# Hypothesis 2:
-Assumption2:     
+# Hypothesis 2:     
 - Data used:
     - metdata file for ozone pollution recent 10 years
     - data file for the recent volcanoes eruption information
@@ -102,6 +101,10 @@ How recently 5 years(from 2015-2019) ozone mean compare in each of the state in 
 
 
 # Hypothesis 4:
+- Midwest has the highest overall ozone mean compare to that of other regions among all states from Year 2015 - Year 2019. Overall ozone mean within five years in descending order is ranked by Midwest, Northeast, South, West.
+
+- Ozone mean in Year 2016 and Year 2018 are higher than that of other years in each of four different regions.
+
 - Dataset Used:      
     - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
     - metdata_2016.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2016
@@ -110,6 +113,4 @@ How recently 5 years(from 2015-2019) ozone mean compare in each of the state in 
     - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
     - Site.csv : pair each SITE_ID to which State it actually in.     
  
-How ozone mean in recently 5 years(from 2015-2019) compare in 4 different regions which are Midwest, Northeast, South and west?
-In details, conclude the variation in all states in 4 different regions.
-any state did not follow the trends in any region for each year?
+
