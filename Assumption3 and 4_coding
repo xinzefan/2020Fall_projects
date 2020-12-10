@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 
-#Assumption3
+#Hypothesis3
+#Not compeletely done
 #group by "MONTH" and "STATE"
 def function_groupby(dataframe):
     df = dataframe[['SITE_ID', 'DATE_TIME', 'OZONE']]
@@ -17,6 +18,15 @@ def function_groupby(dataframe):
 #concat with each of the metdata file
 def function_concat(dataframe1, dataframe2):
     df_12 = pd.concat([dataframe1, dataframe2]).groupby('MONTH', as_index = False).mean()
+    
+    
+    
+    
+    
+    
+    
+#Hypothesis4
+#not completely done
 
 
 if __name__ == '__main__':
