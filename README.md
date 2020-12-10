@@ -98,7 +98,15 @@
      The volcanoes eruption will increase the ozone pollution rapidly and influenced the surrounded area.
 
 # Hypothesis 3:
-How recently 5 years(from 2015-2019) ozone mean compare in each of the state in the perspective of each months(From Jan to December)?
+- We may expect a seasonal trend over all states regarding to ozone mean in total from Year 2015 - Year 2019
+
+- Dataset Used:
+    - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
+    - metdata_2016.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2016
+    - metdata_2017.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2017
+    - metdata_2018.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2018
+    - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
+    - Site.csv : pair each SITE_ID to which State it actually in.   
 
 
 # Hypothesis 4:
