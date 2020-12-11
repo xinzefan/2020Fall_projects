@@ -110,9 +110,7 @@
 
 
 # Hypothesis 4:
-- Midwest has the highest overall ozone mean compare to that of other regions among all states from Year 2015 - Year 2019. Overall ozone mean within five years in descending order is ranked by Midwest, Northeast, South, West.
-
-- Ozone mean in Year 2016 and Year 2018 are higher than that of other years in each of four different regions.
+- We expect a trend over regions within five years and we expect certain specific pattern over regions while comparing each year
 
 - Dataset Used:      
     - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
