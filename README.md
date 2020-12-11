@@ -118,7 +118,8 @@
     - metdata_2017.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2017
     - metdata_2018.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2018
     - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
-    - Site.csv : pair each SITE_ID to which State it actually in.     
+    - site.csv: contains SITE_ID, SITE_NUM, and other columns relates to the Site.
+    - state_region.csv: contains state and specific region that states belongs to.
 
 # Reference:
 - Ozone related Data:  https://java.epa.gov/castnet/downloadprogress.do
