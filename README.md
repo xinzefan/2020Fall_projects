@@ -99,6 +99,11 @@
 
 # Hypothesis 3:
 - We may expect a seasonal trend over all states regarding to ozone mean in total from Year 2015 - Year 2019
+  
+  In order to get ozone mean of each month calculated, we need to transfer the "DATE_TIME" column from object type to datatime type and match "DATE_TIME" column with corresponding month via creating new column "MONTH". Since there are multiple Sites with corresponding "SITE_ID" for each site in the each of the 50 states, we need to match the STATE with each of the "SITE_ID". After that, we group by both "STATE" and "MONTH" in order to get the ozone mean for each state in each month. In order to get the overall ozone mean within five years for each month, we group by "MONTH" and then merge dataframes to get the ozone mean corresponding with each month in total via concat.
+  
+  Here is the statistical result for ozone mean in total corresponding with each month:
+  
 
 - Dataset Used:
     - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
