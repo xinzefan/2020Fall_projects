@@ -112,6 +112,22 @@
 # Hypothesis 4:
 - We expect a trend over regions within five years and we expect certain specific pattern over regions while comparing each year
 
+  We calcualte the mean of Ozone for each state from Year 2015 to Year 2019 respectively and convert to dataframe as a whole. Then, we match each of the states to each region through of all 50 states in the United States. The Regions and divisions of the United States are defined as West, Midwest, Northeast and South which are four regions in total. After that, we group by each region regarding to the average of the region'ozone. Regarding to the ozone mean in total from Year 2015 to Year 2019, based on the ozone mean with each of the region from each year respecitvely, then we sum up 5 years ozone mean as a whole and divide within 5 years to get the ozone mean in total statistics.
+  
+  Here is the overview for ozone mean in each region from each year and ozone mean in total within five years:
+  ![diagram](result/hypothesis4/statistical-result.png)
+  
+  Here is the plot for multiple year comparison between region and ozone mean each year respectively:
+  ![diagram](result/hypothesis4/multiple_year_comparison.png)
+  From the plot above, we can see how ozone mean of each region compare to that of other regions in each year. We can also tell that there exists a trend such that ozone mean of Year 2016 and ozone mean of Year 2018 are higher than that of other years in each of the four different regions within five years. 
+  
+  Here is the plot for ozone mean in total comparison within four regions from Year 2015 - Year 2019:
+  ![diagram](result/hypothesis4/Totalregioncompare.png)
+  From the plot above, we can see that Midwest region has the highest overall ozone mean compare to that of other regions and West region has the lowest overall ozone mean within five years in total. The overall ozone mean within five years in descending order is ranked by Midwest, Northeast, South and West.
+  
+  ---- Conclusion ----   
+  In the perspective of comparing ozone mean of four regions each year respectively, the statistical result tells us that there exists a pattern such that ozone mean of 2016 and ozone mean of 2018 are higher than that of other years in each of the region. In the perspective of comparing ozone mean in total of regions, the statistical result tells that there exists a trend in descending order regarding to ozone mean in total in five years: Midwest > Northeast > South > West.
+  
 - Dataset Used:      
     - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
     - metdata_2016.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2016
@@ -120,6 +136,7 @@
     - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
     - site.csv: contains SITE_ID, SITE_NUM, and other columns relates to the Site.
     - state_region.csv: contains state and specific region that states belongs to.
+    
 
 # Reference:
 - Ozone related Data:  https://java.epa.gov/castnet/downloadprogress.do
