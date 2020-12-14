@@ -149,7 +149,7 @@
   From the plot above, we can see that South region has the highest overall ozone mean compare to that of other regions and Northeast region has the lowest overall ozone mean within five years in total. The overall ozone mean within five years in descending order is ranked by South, Midwest, West and Northeast.
   
   ---- Conclusion ----   
-  In the perspective of comparing ozone mean of four regions each year respectively, the statistical result tells us that there exists a pattern such that ozone mean of 2016 and ozone mean of 2018 are higher than that of other years in each of the region. In the perspective of comparing ozone mean in total of regions, the statistical result tells that there exists a trend in descending order regarding to ozone mean in total in five years: Midwest > Northeast > South > West.
+  In the perspective of comparing ozone mean of four regions each year respectively, the statistical result tells us that there exists a pattern such that ozone mean of 2018 is higher than that of other years in each of the region. In the perspective of comparing ozone mean in total of regions, the statistical result tells that there exists a trend in descending order regarding to ozone mean in total in five years: South > Midwest > West > Northeast.
   
 - Dataset Used:      
     - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
