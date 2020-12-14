@@ -16,6 +16,14 @@ import time
 import math
 import matplotlib.pyplot as plt
 import pylab as plt
+import numpy as np
+import statistics
+from matplotlib import pyplot as plt
+from math import sqrt
+import seaborn as sns
+import plotly.graph_objects as go
+import plotly.express as px
+
 ########################
 #### Xinze Fan #########
 ########################
@@ -103,36 +111,36 @@ def watercover_ozone(yearfile):
 
 ###Assumption2 : volcanos data from: https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-data?maxYear=2020&minYear=2000&country=United%20States
 def distance (x1,y1,x2,y2):
-    """
-    give the two position, return in miles
-    :param x1: first position x
-    :param y1: first position y
-    :param x2: second position x
-    :param y2: second position y
-    :return: miles in float
-    >>> distance(5.68, 7.95, 8.72, 20.81)
-    788.006105005502
-    >>> distance(10.25, 14.11, 18.82, 51.49)
-    2229.96418603418
+	"""
+	give the two position, return in miles
+	:param x1: first position x
+	:param y1: first position y
+	:param x2: second position x
+	:param y2: second position y
+	:return: miles in float
+	>>> distance(5.68, 7.95, 8.72, 20.81)
+	788.006105005502
+	>>> distance(10.25, 14.11, 18.82, 51.49)
+	2229.96418603418
 	>>> distance(16.708,145.780,41.84046,-72.010368)
 	6724.862746550514
-    """
-    geod = Geodesic.WGS84
-    dist = geod.Inverse(float(x1),float(y1),float(x2),float(y2))
-    return  dist['s12'] /1852.0
+	"""
+	geod = Geodesic.WGS84
+	dist = geod.Inverse(float(x1),float(y1),float(x2),float(y2))
+	return  dist['s12'] /1852.0
 def time_hours(t1,t2):
-    """
-    compute the time lag between two records
-    :param t1: time 1
-    :param t2: time 2
-    :return: time lag in hours
-    >>> time_hours('2010-05-29 00:00', '2010-05-28 23:00')
-    -1.0
-    """
-    dt1 = datetime.datetime.strptime(str(t1),"%Y-%m-%d %H:%M")
-    dt2 = datetime.datetime.strptime(str(t2),"%Y-%m-%d %H:%M")
-    diff = (dt2-dt1).seconds/3600 + (dt2-dt1).days*24
-    return diff
+	"""
+	compute the time lag between two records
+	:param t1: time 1
+	:param t2: time 2
+	:return: time lag in hours
+	>>> time_hours('2010-05-29 00:00', '2010-05-28 23:00')
+	-1.0
+	"""
+	dt1 = datetime.datetime.strptime(str(t1),"%Y-%m-%d %H:%M")
+	dt2 = datetime.datetime.strptime(str(t2),"%Y-%m-%d %H:%M")
+	diff = (dt2-dt1).seconds/3600 + (dt2-dt1).days*24
+	return diff
 def nearestSITE(vx,vy,number):
 	"""
 	use distance functions to calculate the nearest SITE to the x,y
@@ -218,6 +226,39 @@ def ozone_vol(data,site,erupdate):
 	plt.savefig('result/hypotheses2/'+ name+'.png')
 	plt.clf()
 
+######### Dezhou Chen  ######
+#Citation: https://www.youtube.com/watch?v=3aOtG9ns_Ko&feature=youtu.be
+#coverting structure and using month structure
+#Citation:https://stackoverflow.com/questions/46789098/create-new-column-in-dataframe-with-match-values-from-other-dataframe
+#using strucutre of mapping
+def month_ozone(year,site):
+	file = "data_used/ozone/metdata_20" + str(year) + ".csv"
+	data = pd.read_csv(file)
+	data = data[['SITE_ID', 'DATE_TIME', 'OZONE']]
+	data['DATE_TIME'] = pd.to_datetime(data['DATE_TIME'])
+	data['MONTH'] = data['DATE_TIME'].dt.month
+	data['STATE'] = data['SITE_ID'].map(site.set_index('SITE_ID')['STATE'])
+	data = data.groupby(["STATE", "MONTH"]).mean().reset_index()
+	plt.figure()
+	nr = sns.boxplot(x='MONTH', y = "OZONE", data = data)
+	nr.set_title('Year 20' + str(year))
+	path = 'result/hypotheses3/'+str(year)
+	plt.savefig(path +'.png')
+	return data
+def ozone_region(meta,site,state_region,year):
+	meta = meta[['SITE_ID', 'OZONE']]
+	result = pd.concat([meta, site], axis=1, sort=False)
+	result = result.groupby("STATE").mean()
+	result = result.reset_index()
+	diff = result.columns.difference(state_region.columns)
+	dataframe = pd.merge(state_region, result[diff], left_index=True, right_index=True, how='outer')
+	dataframe = dataframe.sort_values(by=['REGION'])
+	dataframe = dataframe[['REGION', 'OZONE']]
+	dataframe = dataframe.groupby("REGION").mean().round(1)
+	dataframe= dataframe.reset_index()
+	newname = 'OZONE_MEAN_' + str(year)
+	dataframe.columns = ['REGION', newname]
+	return dataframe
 
 ###### main function:
 if __name__ == "__main__":
@@ -300,10 +341,55 @@ if __name__ == "__main__":
 		vy = volcano['Longitude'][ind]
 		site = nearestSITE(vx,vy,5)
 		ozone_vol(file,site,errupDate)
-################################
-###### Dezhou Chen  ############
-################################
+#########
+	state_region = pd.read_csv("data_used/state_region.csv")
+	site = pd.read_csv("data_used/Site.csv")
+###### Hypothesis 3
+	site = site[['SITE_ID', 'STATE']]
+	first = month_ozone(15,site)
+	first = first.groupby(["MONTH"]).mean().reset_index()
+	for i in range(16, 20):
+		result = month_ozone(i, site)
+		result = result.groupby(["MONTH"]).mean().reset_index()
+		first = pd.concat([first, result]).groupby('MONTH', as_index=False).mean()
+	first = first.rename(columns={'OZONE': 'OZONE_MEAN_TOTAL'})
+	print(first)
+	### result for all years
+	fig = px.bar(first, x='MONTH', y='OZONE_MEAN_TOTAL')
+	fig.write_image('result/hypotheses3/allyear.png')
+##### hypothesis 4
+#Citation:
+#https://stackoverflow.com/questions/14940743/selecting-excluding-sets-of-columns-in-pandas
+#usage of difference() structure
+	r1 = pd.read_csv('data_used/ozone/metdata_2015.csv')
+	r1 = ozone_region(r1,site,state_region,15)
+	for i in range(15, 20):
+		file = 'data_used/ozone/metdata_20' + str(i) + '.csv'
+		meta = pd.read_csv(file)
+		#site = site[['SITE_ID', 'STATE']]
+		resultframe = ozone_region(meta,site,state_region,i)
+		r1 = r1.merge(resultframe, how='outer')
+	r1['OZONE_MEAN_TOTAL'] = r1[['OZONE_MEAN_15', 'OZONE_MEAN_16', 'OZONE_MEAN_17', 'OZONE_MEAN_18', 'OZONE_MEAN_19']].mean(axis=1)
+	#### plot
+	# plotting for hypothesis4
+	# Citation:https://plotly.com/python/bar-charts/
+	# using the strucutre of go.Figure
+	regions = ['Midwest', 'Northeast', 'South', 'West']
+	fig = go.Figure(data=[
+		go.Bar(name='Year2015', x=regions, y=[30.4, 25.1, 29.7, 29.1]),
+		go.Bar(name='Year2016', x=regions, y=[26.0, 23.8, 29.9, 29.0]),
+		go.Bar(name='Year2017', x=regions, y=[30.0, 30.3, 29.0, 29.6]),
+		go.Bar(name='Year2018', x=regions, y=[33.7, 34.1, 33.5, 32.1]),
+		go.Bar(name='Year2019', x=regions, y=[26.1, 28.8, 25.3, 23.6]),
 
+	])
+	fig.update_layout(barmode='group', title="Multiple Year Comparison Between Region And Ozone Mean ",
+					  xaxis_title="REGION", yaxis_title="OZONE MEAN")
+	fig.write_image('result/hypotheses4/multiyear.png')
+
+	r1 = r1.sort_values(by=['OZONE_MEAN_TOTAL'], ascending=False)
+	fig = px.bar(r1, x='REGION', y='OZONE_MEAN_TOTAL')
+	fig.write_image('result/hypotheses4/region_year.png')
 
 
 
