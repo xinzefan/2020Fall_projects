@@ -142,11 +142,11 @@
   
   Here is the plot for multiple year comparison between region and ozone mean each year respectively:
   ![diagram](result/hypothesis4/multiple_year_comparison.png)
-  From the plot above, we can see how ozone mean of each region compare to that of other regions in each year. We can also tell that there exists a trend such that ozone mean of Year 2016 and ozone mean of Year 2018 are higher than that of other years in each of the four different regions within five years. 
+  From the plot above, we can see how ozone mean of each region compare to that of other regions in each year. We can also tell that there exists a trend such that ozone mean of Year 2018 are higher than that of other years in each of the four different regions within five years. 
   
   Here is the plot for ozone mean in total comparison within four regions from Year 2015 - Year 2019:
-  ![diagram](result/hypothesis4/Totalregioncompare.png)
-  From the plot above, we can see that Midwest region has the highest overall ozone mean compare to that of other regions and West region has the lowest overall ozone mean within five years in total. The overall ozone mean within five years in descending order is ranked by Midwest, Northeast, South and West.
+  ![diagram](result/hypothesis4/total_ozone_region_comparison.png)
+  From the plot above, we can see that South region has the highest overall ozone mean compare to that of other regions and Northeast region has the lowest overall ozone mean within five years in total. The overall ozone mean within five years in descending order is ranked by South, Midwest, West and Northeast.
   
   ---- Conclusion ----   
   In the perspective of comparing ozone mean of four regions each year respectively, the statistical result tells us that there exists a pattern such that ozone mean of 2016 and ozone mean of 2018 are higher than that of other years in each of the region. In the perspective of comparing ozone mean in total of regions, the statistical result tells that there exists a trend in descending order regarding to ozone mean in total in five years: Midwest > Northeast > South > West.
