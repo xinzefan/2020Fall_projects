@@ -152,12 +152,8 @@
   In the perspective of comparing ozone mean of four regions each year respectively, the statistical result tells us that there exists a pattern such that ozone mean of 2018 is higher than that of other years in each of the region. In the perspective of comparing ozone mean in total of regions, the statistical result tells that there exists a trend in descending order regarding to ozone mean in total in five years: South > Midwest > West > Northeast.
   
 - Dataset Used:      
-    - metdata_2015.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2015
-    - metdata_2016.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2016
-    - metdata_2017.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2017
-    - metdata_2018.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2018
-    - metdata_2019.csv: contains SITE_ID, date_time, ozone and other data recording for each SITE_ID within Year 2019
-    - site.csv: contains SITE_ID, SITE_NUM, and other columns relates to the Site.
+    - metdata_year.csv in ozone folder which contains the precipitation and ozone data for all the sites in united states.    
+    - Site.csv : pair each SITE_ID to which State it actually in.  
     - state_region.csv: contains state and specific region that states belongs to.
     
 
