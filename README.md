@@ -102,21 +102,18 @@
   
   In order to get ozone mean of each month calculated, we need to transfer the "DATE_TIME" column from object type to datatime type and match "DATE_TIME" column with corresponding month via creating new column "MONTH". Since there are multiple Sites with corresponding "SITE_ID" for each site in the each of the 50 states, we need to match the STATE with each of the "SITE_ID". After that, we group by both "STATE" and "MONTH" in order to get the ozone mean for each state in each month. In order to get the overall ozone mean within five years for each month, we group by "MONTH" and then merge dataframes to get the ozone mean corresponding with each month in total via concat.
   
-  Here is the statistical result for ozone mean in total corresponding with each month:
-  
-  ![diagram](result/hypothesis3/overall_stats_result.png) 
-  
   Here are the boxplots for month versus ozone mean in all states for each year respectively:
-  ![diagram](result/hypothesis3/boxplot_2015.png)
-  ![diagram](result/hypothesis3/boxplot_2016.png)
-  ![diagram](result/hypothesis3/boxplot_2017.png)
-  ![diagram](result/hypothesis3/boxplot_2018.png)
-  ![diagram](result/hypothesis3/boxplot_2019.png)
+  ![diagram](result/hypotheses3/15.png)
+  ![diagram](result/hypotheses3/16.png)
+  ![diagram](result/hypotheses3/17.png)
+  ![diagram](result/hypotheses3/18.png)
+  ![diagram](result/hypotheses3/19.png)
   
   From boxplots above, we can see that there exists an ascending trend from January to April with corresponding ozone mean and an descending trend from April to December in each year from 2015 to 2019. As for year 2019, though it's not exactly the ascending trend from January to April(more likely from January to March), it follows a pattern of ascending firstly and then descending through out the rest of the months. Therefore, it's reasonable for us to infer the trend for each month with corresponding ozone mean in total from Year 2015 to Year 2019 to be the same.
   
   Here is the bar chart for ozone mean in total from Year 2015 - Year 2019 with each month respectively:
-  ![diagram](result/hypothesis3/months_ozone_total.png)
+  ![diagram](result/hypotheses3/allyear.png)
+  
   From the plot above, the statistical result shows that there exists a trend such that ascending from January to April and descending from April December regarding to Ozone mean in total. This match the boxplot trend for each month corresponding with Ozone mean for each year range from 2015 - 2019.
   
   ---- Conclusion ---- 
@@ -133,15 +130,14 @@
 
   We calcualte the mean of Ozone for each state from Year 2015 to Year 2019 respectively and convert to dataframe as a whole. Then, we match each of the states to each region through of all 50 states in the United States. The Regions and divisions of the United States are defined as West, Midwest, Northeast and South which are four regions in total. After that, we group by each region regarding to the average of the region'ozone. Regarding to the ozone mean in total from Year 2015 to Year 2019, based on the ozone mean with each of the region from each year respecitvely, then we sum up 5 years ozone mean as a whole and divide within 5 years to get the ozone mean in total statistics.
   
-  Here is the overview for ozone mean in each region from each year and ozone mean in total within five years:
-  ![diagram](result/hypothesis4/statistical-result.png)
-  
   Here is the plot for multiple year comparison between region and ozone mean each year respectively:
-  ![diagram](result/hypothesis4/multiple_year_comparison.png)
+  ![diagram](result/hypotheses4/multiyear.png)
+  
   From the plot above, we can see how ozone mean of each region compare to that of other regions in each year. We can also tell that there exists a trend such that ozone mean of Year 2018 are higher than that of other years in each of the four different regions within five years. 
   
   Here is the plot for ozone mean in total comparison within four regions from Year 2015 - Year 2019:
-  ![diagram](result/hypothesis4/total_ozone_region_comparison.png)
+  ![diagram](result/hypotheses4/total_ozone_region_comparison.png)
+  
   From the plot above, we can see that South region has the highest overall ozone mean compare to that of other regions and Northeast region has the lowest overall ozone mean within five years in total. The overall ozone mean within five years in descending order is ranked by South, Midwest, West and Northeast.
   
   ---- Conclusion ----   
