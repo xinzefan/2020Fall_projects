@@ -232,6 +232,18 @@ def ozone_vol(data,site,erupdate):
 #Citation:https://stackoverflow.com/questions/46789098/create-new-column-in-dataframe-with-match-values-from-other-dataframe
 #using strucutre of mapping
 def month_ozone(year,site):
+	"""
+	Boxplot for months and ozone mean for each year and dataframe statistics result
+	:param year: input year for each year between 2015 and 2019
+	:param site: read Site.csv file and assign as site
+	:return: rebased data
+	>>> sit = pd.read_csv('data_used/Site.csv')
+	>>> site = sit[['SITE_ID', 'STATE']]
+	>>> test = month_ozone(15,site)
+	>>> test.loc[(test['STATE']=='AK')& ( test['MONTH'] == 1)]['OZONE']
+	0    35.848118
+	Name: OZONE, dtype: float64
+	"""
 	file = "data_used/ozone/metdata_20" + str(year) + ".csv"
 	data = pd.read_csv(file)
 	data = data[['SITE_ID', 'DATE_TIME', 'OZONE']]
@@ -246,6 +258,21 @@ def month_ozone(year,site):
 	plt.savefig(path +'.png')
 	return data
 def ozone_region(meta,site,state_region,year):
+	"""
+	 dataframe between regions and ozone mean in each specific year from 2015 - 2019
+	:param meta: meta dataframe for each year between 2015 and 2019
+	:param site: read Site.csv file and assign as site
+	:param state_region: read state_region file for state corresponding with region and assign as state_region
+	:param year: input year for each year between 2015 and 2019
+	:return: dataframe between each region and ozone mean in specific year
+	>>> tem = pd.read_csv('data_used/ozone/metdata_2015.csv')
+	>>> sit = pd.read_csv('data_used/Site.csv')
+	>>> reg = pd.read_csv('data_used/state_region.csv')
+	>>> test = ozone_region(tem,sit,reg,2015)
+	>>> test[test['REGION'] == 'Midwest']['OZONE_MEAN_2015']
+	0    29.4
+	Name: OZONE_MEAN_2015, dtype: float64
+	"""
 	meta = meta[['SITE_ID', 'OZONE']]
 	result = pd.concat([meta, site], axis=1, sort=False)
 	result = result.groupby("STATE").mean()
@@ -381,7 +408,6 @@ if __name__ == "__main__":
 		go.Bar(name='Year2017', x=regions, y=[30.0, 30.3, 29.0, 29.6]),
 		go.Bar(name='Year2018', x=regions, y=[33.7, 34.1, 33.5, 32.1]),
 		go.Bar(name='Year2019', x=regions, y=[26.1, 28.8, 25.3, 23.6]),
-
 	])
 	fig.update_layout(barmode='group', title="Multiple Year Comparison Between Region And Ozone Mean ",
 					  xaxis_title="REGION", yaxis_title="OZONE MEAN")
