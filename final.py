@@ -289,9 +289,7 @@ def ozone_region(meta,site,state_region,year):
 
 ###### main function:
 if __name__ == "__main__":
-	# Assumption1:
-	# Does the rain fall affect the ozone pollution? Will the water coverage rate influence the ozone pollutions constancy?
-	# Will the ozone pollutions tend to changed into wet-deposite with more rain fall?
+	# Hypothesis1:
 	# ozone layer and deposition data : https://java.epa.gov/castnet/downloadprogress.do
 	# water coverage data: https://www.usgs.gov/special-topic/water-science-school/science/how-wet-your-state-water-area-each-state?qt-science_center_objects=0#qt-science_center_objects
 	# 2019 example
@@ -353,7 +351,7 @@ if __name__ == "__main__":
 		y.append(state_ozone[result['STATE'][ind]])
 	plt.plot(x,y)
 	plt.savefig('result/hypotheses1/watercover_growRate.png')
-### Assumption 2 : volcanos influence
+### Hypothesis 2 : volcanos influence
 # volcanoes dataset from :https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-data?maxYear=2020&minYear=2010&country=United%20States
 # read in volcanos data
 	volcano = pd.read_csv('data_used/volcanos.csv')
