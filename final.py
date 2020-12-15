@@ -6,7 +6,7 @@
 ####						def distance (x1,y1,x2,y2), def time_hours(t1,t2), def nearestSITE(vx,vy,number),def timeana(set,eruptime,start,end),
 ####						def ozone_vol(data,site,erupdate)，def ozone_region(meta,site,state_region,year)
 #### Dezhou Chen: Hypotheses 3 & 4
-####			Function:	def month_ozone(year,site)，
+####			Function:	def month_ozone(year,site)，def ozone_region(meta,site,state_region,year)
 
 import os
 import pandas as pd
