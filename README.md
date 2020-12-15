@@ -114,7 +114,7 @@
   Here is the bar chart for ozone mean in total from Year 2015 - Year 2019 with each month respectively:
   ![diagram](result/hypotheses3/allyear.png)
   
-  From the plot above, the statistical result shows that there exists a trend such that ascending from January to April and descending from April December regarding to Ozone mean in total. This match the boxplot trend for each month corresponding with Ozone mean for each year range from 2015 - 2019.
+  From the plot above, the statistical result shows that there exists a trend such that ascending from January to April and descending from April to December regarding to Ozone mean in total.This match each boxplot trend for month and ozone mean from 2015 - 2019 respectively.
   
   ---- Conclusion ----          
   The seasonable trend over all states regarding to ozone mean in totoal from Year 2015 - Year 2019 is to ascend from Januanry to April and to descend from April to December.
