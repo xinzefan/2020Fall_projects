@@ -94,8 +94,8 @@
      But others nearest site did not have a significant change during this time. So we believed that this is affected by the wind blow direction. Such means that after the volcano erupted, the wind blow the pollution to one specific direction so not all near by sites got influenced by the volcano.
      ![diagram](result/hypotheses2/2014-11-10.png)     
      (Another significant example)      
-     ---- Conclusion ----
-     The volcanoes eruption will increase the ozone pollution rapidly and influenced the surrounded area.
+     ---- Conclusion ----       
+     The volcanoes eruption will increase the ozone pollution rapidly and influenced the surrounded area.       
 
 # Hypothesis 3:
 - We may expect a seasonal trend over all states regarding to ozone mean in total from Year 2015 - Year 2019
@@ -116,7 +116,7 @@
   
   From the plot above, the statistical result shows that there exists a trend such that ascending from January to April and descending from April December regarding to Ozone mean in total. This match the boxplot trend for each month corresponding with Ozone mean for each year range from 2015 - 2019.
   
-  ---- Conclusion ---- 
+  ---- Conclusion ----          
   The seasonable trend over all states regarding to ozone mean in totoal from Year 2015 - Year 2019 is to ascend from Januanry to April and to descend from April to December.
   
 
